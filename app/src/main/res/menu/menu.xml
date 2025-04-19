@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/senior_contact"
+        android:title="@string/senior_contact"
+        android:icon="@drawable/ic_contacts"
+        />
+    <item
+        android:id="@+id/senior_dashboard"
+        android:title="@string/senior_dashboard"
+        android:icon="@drawable/senior_dashboard"
+
+    />
+    <item
+        android:id="@+id/senior_profile"
+        android:title="@string/senior_profile"
+        android:icon="@drawable/ic_senior"
+        />
+</menu>
