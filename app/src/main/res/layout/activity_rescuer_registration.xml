@@ -203,7 +203,7 @@
 
         <!-- Submit Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/submit_hospital"
+            android:id="@+id/submit_rescuer"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="@string/button_register_rescue_group"
