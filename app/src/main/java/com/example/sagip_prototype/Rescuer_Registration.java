@@ -84,8 +84,7 @@ public class Rescuer_Registration extends AppCompatActivity {
                         .get()
                         .addOnSuccessListener(queryDocumentSnapshots -> {
                             if (!queryDocumentSnapshots.isEmpty()) {
-                                // Mobile number already exists
-                                Toast.makeText(Rescuer_Registration.this,
+                            Toast.makeText(Rescuer_Registration.this,
                                         "This mobile number is already registered.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
