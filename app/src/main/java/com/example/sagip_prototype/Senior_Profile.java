@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,9 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Senior_Profile extends AppCompatActivity {
 
-        FirebaseAuth mAuth;
-        FirebaseFirestore db;
-
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +30,26 @@ public class Senior_Profile extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         LinearLayout goToUpdate = findViewById(R.id.change_Number);
-
         TextView tvFullName = findViewById(R.id.profileName);
         TextView tvnumber = findViewById(R.id.profileEmail);
 
-        goToUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Senior_Profile.this, Senior_Update_Profile.class);
-                startActivity(intent);
-                finish();
-            }
+        // Handle Profile Update Navigation
+        goToUpdate.setOnClickListener(v -> {
+            Intent intent = new Intent(Senior_Profile.this, Senior_Update_Profile.class);
+            startActivity(intent);
+            finish();
         });
 
+        // Logout Button
+        LinearLayout logoutButton = findViewById(R.id.logoutLayout);
+        logoutButton.setOnClickListener(v -> {
+            mAuth.signOut(); // Sign out the user
+            Toast.makeText(Senior_Profile.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Senior_Profile.this, MainActivity.class)); // Redirect to login screen
+            finish(); // Finish the current activity
+        });
+
+        // Load user data from Firestore
         String uid = mAuth.getCurrentUser().getUid();
         String userType = "seniors";
 
@@ -67,10 +72,8 @@ public class Senior_Profile extends AppCompatActivity {
                     }
                 });
 
-
+        // Bottom Navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
-
-
         bottomNavigationView.setSelectedItemId(R.id.senior_profile);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -91,6 +94,5 @@ public class Senior_Profile extends AppCompatActivity {
             }
             return false;
         });
-
     }
 }

@@ -154,31 +154,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Areas of Coverage -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/section_areas_of_coverage"
-            android:textColor="#1A1A1A"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:hint="@string/hint_select_barangays">
-
-            <AutoCompleteTextView
-                android:id="@+id/area_of_coverage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:focusable="false"
-                android:clickable="true" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Terms and Conditions -->
         <com.google.android.material.checkbox.MaterialCheckBox

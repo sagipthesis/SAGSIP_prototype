@@ -30,7 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,14 +41,13 @@ public class Senior_Dashboard extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
 
-    TextView tvFullName, tvBirthday, tvAge, tvMobile, tvAddress, tvCurrentLocation, tvSOSStatus;
+    // Only these two TextViews
+    TextView tvFullName, tvCurrentLocation;
 
-    // Location related variables
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     private boolean locationUpdatesActive = false;
 
-    // Permission launcher
     private ActivityResultLauncher<String[]> locationPermissionRequest;
 
     @Override
@@ -58,29 +56,29 @@ public class Senior_Dashboard extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_senior_dashboard);
 
+        // Firebase init
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // 🔥 Check if user is logged in
+        // Check if logged in
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(Senior_Dashboard.this, MainActivity.class));
             finish();
             return;
         }
 
-        // Initialize views
-        tvFullName = findViewById(R.id.tvFullName);
-        tvBirthday = findViewById(R.id.tvBirthday);
-        tvAge = findViewById(R.id.tvAge);
-        tvMobile = findViewById(R.id.tvMobile);
-        tvAddress = findViewById(R.id.tvAddress);
+        // Find TextViews
+        tvFullName = findViewById(R.id.seniorName);
         tvCurrentLocation = findViewById(R.id.tvCurrentLocation);
-        tvSOSStatus = findViewById(R.id.tvSOSStatus);
 
+        // Location services
         initializeLocationServices();
         registerLocationPermissionLauncher();
+
+        // Load user data
         loadUserData();
 
+        // Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
         bottomNavigationView.setSelectedItemId(R.id.senior_dashboard);
 
@@ -103,6 +101,7 @@ public class Senior_Dashboard extends AppCompatActivity {
             return false;
         });
 
+        // Ask location permission
         requestLocationPermissions();
     }
 
@@ -119,8 +118,7 @@ public class Senior_Dashboard extends AppCompatActivity {
                     } else if (coarseLocationGranted != null && coarseLocationGranted) {
                         startLocationUpdates();
                     } else {
-                        Toast.makeText(this, "Location permission is needed to show your current location",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Location permission is needed to show your current location", Toast.LENGTH_SHORT).show();
                         tvCurrentLocation.setText("Location permission denied");
                     }
                 }
@@ -135,7 +133,6 @@ public class Senior_Dashboard extends AppCompatActivity {
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 for (Location location : locationResult.getLocations()) {
                     updateLocationUI(location);
-                    saveLocationToDatabase(location);
                     stopLocationUpdates();
                 }
             }
@@ -187,12 +184,12 @@ public class Senior_Dashboard extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
         try {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
+            List<Address> addresses = geocoder.getFromLocation(
+                    location.getLatitude(),
+                    location.getLongitude(),
+                    1);
 
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-            if (addresses != null && addresses.size() > 0) {
+            if (addresses != null && !addresses.isEmpty()) {
                 Address address = addresses.get(0);
 
                 StringBuilder addressText = new StringBuilder();
@@ -217,8 +214,9 @@ public class Senior_Dashboard extends AppCompatActivity {
                 tvCurrentLocation.setText(locationAddress);
 
                 Log.d(TAG, "Current location: " + locationAddress);
-                Log.d(TAG, "Full address: " + address.getAddressLine(0));
 
+                // Save the current location to Firestore
+                saveLocationToFirestore(location, locationAddress);
             } else {
                 tvCurrentLocation.setText("Location found but address unknown");
                 Log.d(TAG, "No address found for location");
@@ -229,39 +227,26 @@ public class Senior_Dashboard extends AppCompatActivity {
         }
     }
 
-    private void saveLocationToDatabase(Location location) {
-        if (mAuth.getCurrentUser() == null) return;
-
+    private void saveLocationToFirestore(Location location, String address) {
         String uid = mAuth.getCurrentUser().getUid();
         String userType = "seniors";
 
+        // Create a map to save location data
         Map<String, Object> locationData = new HashMap<>();
         locationData.put("latitude", location.getLatitude());
         locationData.put("longitude", location.getLongitude());
-        locationData.put("accuracy", location.getAccuracy());
-        locationData.put("timestamp", System.currentTimeMillis());
+        locationData.put("address", address);
 
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(
-                    location.getLatitude(), location.getLongitude(), 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                locationData.put("currentLocation", addresses.get(0).getAddressLine(0));
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Error getting address for database", e);
-        }
-
+        // Save the location data to Firestore
         db.collection("Sagip")
                 .document("users")
                 .collection(userType)
                 .document(uid)
-                .update(locationData)
-                .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Location saved to database");
-                })
+                .update("currentLocation", address, "latitude", location.getLatitude(), "longitude", location.getLongitude())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Location saved successfully"))
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error saving location to database", e);
+                    Log.e(TAG, "Error saving location", e);
+                    Toast.makeText(Senior_Dashboard.this, "Failed to save location", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -279,17 +264,14 @@ public class Senior_Dashboard extends AppCompatActivity {
                         String firstName = documentSnapshot.getString("firstName");
                         String middleName = documentSnapshot.getString("middleName");
                         String lastName = documentSnapshot.getString("lastName");
-                        String birthday = documentSnapshot.getString("birthday");
-                        String address = documentSnapshot.getString("address");
-                        String mobileNumber = documentSnapshot.getString("mobileNumber");
                         String currentLocation = documentSnapshot.getString("currentLocation");
 
-                        String fullName = firstName + " " + middleName + " " + lastName;
-
-                        tvFullName.setText(fullName);
-                        tvBirthday.setText(birthday);
-                        tvAddress.setText(address);
-                        tvMobile.setText(mobileNumber);
+                        if (firstName != null && middleName != null && lastName != null) {
+                            String fullName = firstName + " " + middleName + " " + lastName;
+                            tvFullName.setText(fullName);
+                        } else {
+                            tvFullName.setText("Full Name Not Available");
+                        }
 
                         if (currentLocation != null && !currentLocation.isEmpty()) {
                             tvCurrentLocation.setText(currentLocation);
@@ -297,12 +279,6 @@ public class Senior_Dashboard extends AppCompatActivity {
                             tvCurrentLocation.setText("Waiting for location update...");
                         }
 
-                        if (birthday != null && !birthday.isEmpty()) {
-                            int age = calculateAgeFromBirthday(birthday);
-                            tvAge.setText(String.valueOf(age));
-                        } else {
-                            tvAge.setText("-");
-                        }
                     } else {
                         tvFullName.setText("User data not found.");
                         Log.d(TAG, "Document doesn't exist");
@@ -313,36 +289,6 @@ public class Senior_Dashboard extends AppCompatActivity {
                     Log.e(TAG, "Error fetching user data", e);
                     e.printStackTrace();
                 });
-    }
-
-    private int calculateAgeFromBirthday(String birthday) {
-        try {
-            String[] parts = birthday.split(" - ");
-            if (parts.length != 3) {
-                Log.e(TAG, "Invalid birthday format: " + birthday);
-                return 0;
-            }
-
-            int birthDay = Integer.parseInt(parts[0]);
-            int birthMonth = Integer.parseInt(parts[1]);
-            int birthYear = Integer.parseInt(parts[2]);
-
-            Calendar now = Calendar.getInstance();
-            int currentYear = now.get(Calendar.YEAR);
-            int currentMonth = now.get(Calendar.MONTH) + 1;
-            int currentDay = now.get(Calendar.DAY_OF_MONTH);
-
-            int age = currentYear - birthYear;
-
-            if (currentMonth < birthMonth || (currentMonth == birthMonth && currentDay < birthDay)) {
-                age--;
-            }
-
-            return age;
-        } catch (Exception e) {
-            Log.e(TAG, "Error calculating age", e);
-            return 0;
-        }
     }
 
     @Override

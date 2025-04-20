@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Barangay_Regsitration extends AppCompatActivity {
+public class Barangay_Registration extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -60,8 +60,6 @@ public class Barangay_Regsitration extends AppCompatActivity {
         barangaySecretaryEditText = findViewById(R.id.barangay_secretary);
         barangayHallAddressEditText = findViewById(R.id.barangay_hall_address);
         contactNumberEditText = findViewById(R.id.contact_number);
-        populationEditText = findViewById(R.id.population);
-        landAreaEditText = findViewById(R.id.land_area);
     }
 
     private void submitBarangayRegistration() {
@@ -72,13 +70,9 @@ public class Barangay_Regsitration extends AppCompatActivity {
         String barangaySecretary = barangaySecretaryEditText.getText().toString().trim();
         String barangayHallAddress = barangayHallAddressEditText.getText().toString().trim();
         String contactNumber = contactNumberEditText.getText().toString().trim();
-        String population = populationEditText.getText().toString().trim();
-        String landArea = landAreaEditText.getText().toString().trim();
-
         if (barangayName.isEmpty() || municipalityCity.isEmpty() || province.isEmpty() ||
                 barangayCaptain.isEmpty() || barangaySecretary.isEmpty() ||
-                barangayHallAddress.isEmpty() || contactNumber.isEmpty() ||
-                population.isEmpty() || landArea.isEmpty()) {
+                barangayHallAddress.isEmpty() || contactNumber.isEmpty()) {
             Toast.makeText(this, "Fill all Fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -98,15 +92,13 @@ public class Barangay_Regsitration extends AppCompatActivity {
         String email = user.getEmail();
 
         checkIfEmailExistsAndRegister(uid, email, barangayName, municipalityCity, province,
-                barangayCaptain, barangaySecretary, barangayHallAddress, contactNumber,
-                population, landArea);
+                barangayCaptain, barangaySecretary, barangayHallAddress, contactNumber);
     }
 
     private void checkIfEmailExistsAndRegister(String uid, String email, String barangayName,
                                                String municipalityCity, String province,
                                                String barangayCaptain, String barangaySecretary,
-                                               String barangayHallAddress, String contactNumber,
-                                               String population, String landArea) {
+                                               String barangayHallAddress, String contactNumber) {
 
         db.collection("Sagip")
                 .document("users")
@@ -115,7 +107,7 @@ public class Barangay_Regsitration extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
-                        Toast.makeText(Barangay_Regsitration.this,
+                        Toast.makeText(Barangay_Registration.this,
                                 "This email is already registered.",
                                 Toast.LENGTH_SHORT).show();
                     } else {
@@ -127,8 +119,6 @@ public class Barangay_Regsitration extends AppCompatActivity {
                         usrData.put("barangaySecretary", barangaySecretary);
                         usrData.put("barangayHallAddress", barangayHallAddress);
                         usrData.put("contactNumber", contactNumber);
-                        usrData.put("population", population);
-                        usrData.put("landArea", landArea);
                         usrData.put("email", email);
                         usrData.put("user-type", userType);
 
@@ -141,11 +131,11 @@ public class Barangay_Regsitration extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(Barangay_Regsitration.this, "Verification Process", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(Barangay_Regsitration.this, Verification_Page.class));
+                                            Toast.makeText(Barangay_Registration.this, "Verification Process", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(Barangay_Registration.this, Verification_Page.class));
                                             finish();
                                         } else {
-                                            Toast.makeText(Barangay_Regsitration.this,
+                                            Toast.makeText(Barangay_Registration.this,
                                                     "Failed to save data: " + task.getException().getMessage(),
                                                     Toast.LENGTH_SHORT).show();
                                         }
@@ -154,7 +144,7 @@ public class Barangay_Regsitration extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(Barangay_Regsitration.this,
+                    Toast.makeText(Barangay_Registration.this,
                             "Error checking email: " + e.getMessage(),
                             Toast.LENGTH_SHORT).show();
                 });

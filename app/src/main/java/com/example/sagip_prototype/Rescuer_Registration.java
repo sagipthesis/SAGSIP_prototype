@@ -27,9 +27,7 @@ import java.util.Map;
 public class Rescuer_Registration extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-
     FirebaseFirestore db;
-
     String userType = "rescuer";
 
     @Override
@@ -42,7 +40,6 @@ public class Rescuer_Registration extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         EditText rescueGroupName = findViewById(R.id.rescue_group_name);
-        EditText organizationType = findViewById(R.id.organization_type);
         EditText headquartersAddress = findViewById(R.id.headquarters_address);
         EditText primaryContactPerson = findViewById(R.id.primary_contact_person);
         EditText contactNumber = findViewById(R.id.contact_number);
@@ -54,19 +51,20 @@ public class Rescuer_Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String groupname = rescueGroupName.getText().toString().trim();
-                String organization = organizationType.getText().toString().trim();
                 String headquarters = headquartersAddress.getText().toString().trim();
                 String contact = primaryContactPerson.getText().toString().trim();
                 String number = contactNumber.getText().toString().trim();
 
-                if (groupname.isEmpty() || organization.isEmpty() || headquarters.isEmpty() || contact.isEmpty() || number.isEmpty()) {
+                if (groupname.isEmpty() || headquarters.isEmpty() || contact.isEmpty() || number.isEmpty()) {
                     Toast.makeText(Rescuer_Registration.this, "Fill all Fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(isValidPhoneNumber(number)){
+
+                if (!isValidPhoneNumber(number)) {
                     Toast.makeText(Rescuer_Registration.this, "Enter a valid number", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user == null) {
                     Toast.makeText(Rescuer_Registration.this, "User not authenticated", Toast.LENGTH_SHORT).show();
@@ -76,26 +74,24 @@ public class Rescuer_Registration extends AppCompatActivity {
                 String uid = user.getUid();
                 String email = user.getEmail();
 
-                // ✅ Check if mobile number already exists
                 db.collection("Sagip")
                         .document("users")
                         .collection(userType)
-                        .whereEqualTo("email",email )
+                        .whereEqualTo("email", email)
                         .get()
                         .addOnSuccessListener(queryDocumentSnapshots -> {
                             if (!queryDocumentSnapshots.isEmpty()) {
-                            Toast.makeText(Rescuer_Registration.this,
-                                        "This mobile number is already registered.",
+                                Toast.makeText(Rescuer_Registration.this,
+                                        "This email is already registered.",
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                // Proceed with registration
+                                // Create a plain data object for Firestore
                                 Map<String, Object> usrData = new HashMap<>();
                                 usrData.put("rescuegroup", groupname);
-                                usrData.put("organization", organizationType);
                                 usrData.put("headquarters", headquarters);
                                 usrData.put("contactPerson", contact);
                                 usrData.put("number", number);
-                                usrData.put("email",email);
+                                usrData.put("email", email);
                                 usrData.put("user-type", userType);
 
                                 db.collection("Sagip")
@@ -108,7 +104,7 @@ public class Rescuer_Registration extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Intent intent = new Intent(Rescuer_Registration.this,
-                                                            Verification_Page.class);
+                                                            Rescuer_Dashboard.class);
                                                     Toast.makeText(Rescuer_Registration.this, "Verification Process", Toast.LENGTH_SHORT).show();
                                                     startActivity(intent);
                                                     finish();
@@ -123,13 +119,13 @@ public class Rescuer_Registration extends AppCompatActivity {
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(Rescuer_Registration.this,
-                                    "Error checking mobile number: " + e.getMessage(),
+                                    "Error checking email: " + e.getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         });
             }
-
         });
     }
+
     private boolean isValidPhoneNumber(String number) {
         return !TextUtils.isEmpty(number) && number.matches("\\d{10}");
     }

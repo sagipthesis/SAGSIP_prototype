@@ -7,4 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".Hospital_Dashboard">
 
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/hospital_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
