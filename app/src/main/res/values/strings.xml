@@ -1,0 +1,228 @@
+<resources>
+    <string name="app_name">Sagip</string>
+    <string name="welcome_to">WELCOME TO</string>
+    <string name="enter_number_prompt">Enter your mobile number\nand get started</string>
+    <string name="country_code">+63</string>
+    <string name="mobile_hint">Mobile Number</string>
+    <string name="invalid_mobile_error">Please enter a valid mobile number</string>
+    <string name="login_with_email">Log-in using email</string>
+    <string name="continue_btn">Continue</string>
+    <string name="senior_title">Senior Citizen</string>
+    <string name="senior_description">Call for help</string>
+    <string name="barangay_title">Barangay</string>
+    <string name="barangay_description">Monitor your Area</string>
+    <string name="rescue_title">Rescue</string>
+    <string name="rescue_description">Optimized saving life</string>
+    <string name="hospital_title">Hospital</string>
+    <string name="hospital_description">Post your ER status</string>
+
+    <string name="mobile_number">+639****5015</string>
+    <string name="otp_hint">Enter OTP</string>
+    <string name="instruction_text_otp">Enter the 6-digit code sent to your mobile number below to verify your identity.</string>
+    <string name="timer_text">Code expires in 59s</string>
+    <string name="resend_code_text">Resend Code</string>
+    <string name="verify_button">Verify</string>
+    <string name="security_note">This verification helps us keep your account secure</string>
+    <string name="instruction_text_email">Enter your email address below to verify your identity.</string>
+
+    <string name="back_arrow">Back</string>
+    <string name="checkmark">Submit</string>
+    <string name="account_information">Account Information</string>
+    <string name="mobile_info">We’ll use your mobile number for verification and updates.</string>
+    <string name="instruction_text">Please provide your full name and birthday as shown on your ID.</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="middle_name_hint">Middle Name (Optional)</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="birthday_hint">Birthday (MM/DD/YYYY)</string>
+    <string name="email_hint">Address</string>
+    <string name="terms_conditions">I agree to the Terms and Conditions</string>
+    <string name="privacy_policy">I agree to the Privacy Policy</string>
+    <string name="submit_button_text">Continue</string>
+
+    <string name="rescuer_hospital">Rescuer Hospital</string>
+    <string name="rescuer_dashboard">Rescuer Dashboard</string>
+    <string name="rescuer_profile">Rescuer Profile</string>
+
+    <string name="barangay_list">List</string>
+    <string name="barangay_dashboard">Barangay Dashboard</string>
+    <string name="barangay_profile">Barangay Profile</string>
+
+    <string name="barangay_name">Barangay Name</string>
+    <string name="barangay_email">barangay@example.com</string>
+
+    <string name="hospital_name">Hospital Name</string>
+    <string name="hospital_email">hospital@gmail.com</string>
+
+    <string name="senior_name">Senior Name</string>
+    <string name="senior_email">senior@gmail.com</string>
+    <string name="senior_number">+639****5015</string>
+    <string name="change_number">Changer Number</string>
+
+    <string name="rescuer_name">Rescue Team Name</string>
+    <string name="rescuer_email">rescue@gmail.com</string>
+    <string name="rescuer_number">+639****5015</string>
+
+    <!-- Settings -->
+    <string name="account_settings">Account Settings</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_Info">Update Account Info</string>
+    <string name="change_email">Change Email</string>
+    <string name="notification_settings">Notification Settings</string>
+
+    <string name="password_icon_description">Password icon</string>
+    <string name="toggle_password_visibility">Toggle password visibility</string>
+    <string name="email_hint_login">Enter your email address</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="invalid_credentials_error">Invalid email or password</string>
+    <string name="login_with_phone">Login with phone number instead</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_credentials_prompt">Please enter your email and password to continue</string>
+    <string name="registration_options">Registration Options</string>
+    <string name="email_icon_description">Email icon</string>
+    <string name="more_options">More Options</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="logout">Logout</string>
+
+    <!-- Identity Verification Screen -->
+    <string name="identity_verification">Identity Verification</string>
+    <string name="id_type_hint">ID Type</string>
+    <string name="id_document_photo">ID Document Photo</string>
+    <string name="upload_button">Upload</string>
+    <string name="capture_button">Capture</string>
+    <string name="verify_identity">Verify Identity</string>
+    <string name="privacy_text">Your information is secure and will only be used for verification purposes.</string>
+    <string name="title_selfie_verification">Selfie Verification</string>
+    <string name="selfie_instructions">Please take a clear selfie or upload an image for identity verification. Ensure your face is clearly visible and centered.</string>
+    <string name="selfie_step_indicator">Step 2 of 3</string>
+    <string name="selfie_photo_label">Your Selfie</string>
+    <string name="selfie_photo_placeholder">No selfie selected</string>
+    <string name="instruction_add_contact">Please provide the  full name of you\'re emergency contact.</string>
+    <string name="mobile_info_contacts">We’ll use the mobile number for sending alert to you\'re contact person.</string>
+    <string name="emergency_contact_name">Enter contacts full name</string>
+    <string name="phone_number"> Enter Mobile phone number</string>
+    <string name="emergency_address">Emergency contact address.</string>
+
+
+    <string name="button_upload_selfie">Upload Selfie</string>
+    <string name="button_take_selfie">Take Selfie</string>
+    <string name="button_verify_selfie">Verify Selfie</string>
+    <string name="selfie_guidelines">Selfie Guidelines</string>
+    <string name="guideline_face_visible">Make sure your face is clearly visible</string>
+    <string name="guideline_good_lighting">Take the photo in good lighting</string>
+    <string name="guideline_remove_glasses">Remove glasses or accessories</string>
+    <string name="content_description_face_outline">Face outline placeholder</string>
+    <string name="selfie_privacy_info">Your photo will only be used for verification purposes and will be kept private and secure.</string>
+
+    <string name="contact_name">Contact Name</string>
+    <string name="relationship">Relationship</string>
+    <string name="call_contact">Call contact</string>
+    <string name="contact_options">Contact options</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+
+
+    // SOS Button
+    <string name="emegencysignalcode">SOS</string>
+    <string name="emergencynote">Need Emergency Help?</string>
+    <string name="emergencyguide">Just hold the SOS button to alert.</string>
+
+    // Senior Dashboard - Navigation Bar Icon Label
+    <string name="senior_home">Home</string>
+    <string name="senior_location">Location</string>
+    <string name="senior_profile">Profile</string>
+
+    // Senior Dashboard - Profile
+    <string name="profile_section">Profile</string>
+
+    // Senior Dashboard - Emergency Contact
+    <string name="emergencyContact_section">Emergency Contact List</string>
+    <string name="emergencyHintContactName">Emergency Contact Name</string>
+    <string name="emergencyHintRelationship">Relationship</string>
+    <string name="emergencyHintPhoneNumber">Phone Number</string>
+
+    // Hospital Navbar
+    <string name="hospital_dashboard">Dashboard</string>
+    <string name="hospital_profile">Profile</string>
+    <string name="hospital_list">List</string>
+
+    // Rescuer Registration
+    <string name="title_rescue_group_registration">Rescue Group Registration</string>
+    <string name="instruction_registration">Please complete the following details to register your rescue group.</string>
+
+    <string name="section_basic_information">Basic Information</string>
+    <string name="hint_rescue_group_name">Rescue Group Name*</string>
+    <string name="hint_organization_type">Organization Type*</string>
+
+    <string name="section_contact_details">Contact Details</string>
+    <string name="hint_headquarters_address">Headquarters/Office Address*</string>
+    <string name="hint_primary_contact_person">Primary Contact Person*</string>
+    <string name="hint_contact_number">Contact Number*</string>
+
+    <string name="section_areas_of_coverage">Areas of Coverage</string>
+    <string name="hint_select_barangays">Select Barangay*</string>
+    <string name="content_description_status">Status</string>
+    <string name="checkbox_privacy_policy">I have read, understood, and accepted the Privacy Policy</string>
+    <string name="button_register_rescue_group">Register Rescue Group</string>
+    <string name="checkbox_terms_conditions">I have read, understood, and accepted the Terms and Conditions</string>
+    <string name="update_btn"> Update</string>
+    <string name="delete_btn"> Delete</string>
+
+    <string name="gmap_api_key">AIzaSyBkf_blEJ4wc5Q_CNxABKK6-LFxDF-gWv0</string>
+
+    <!-- Map Navigation Strings -->
+    <string name="btn_navigate">🚗 Navigate</string>
+    <string name="btn_call_senior">📞 Call</string>
+    <string name="btn_show_route">📍 Show Route</string>
+    <string name="btn_hide_route">Hide Route</string>
+    <string name="emergency_location_title">🚨 EMERGENCY LOCATION</string>
+    <string name="senior_needs_help">🆘 %1$s NEEDS HELP</string>
+    <string name="your_location">📍 Your Location</string>
+    <string name="rescuer_position">Rescuer\'s current position</string>
+    <string name="route_displayed">Route displayed</string>
+    <string name="route_hidden">Route hidden</string>
+    <string name="location_not_available">Location not available</string>
+    <string name="destination_not_available">Destination location not available</string>
+    <string name="current_location_not_available">Current location not available yet</string>
+    <string name="location_data_not_available">Location data not available</string>
+    <string name="call_closest_rescuer">📞 Call Closest Rescuer</string>
+    <string name="rescuer_info">🚑 Rescuer Information</string>
+    <string name="distance_away">Distance: %1$s</string>
+    <string name="phone_not_available">Phone: Not available</string>
+    <string name="phone_available">Phone: %1$s</string>
+    <string name="tracking_help_for">🚑 Tracking Help for %1$s</string>
+    <string name="closest_rescuer_info">Closest: %1$s (%2$s)</string>
+    <string name="calling_rescuer">Calling %1$s</string>
+    <string name="no_rescuers_available">No rescuers available to call</string>
+    <string name="phone_not_available_rescuer">Phone number not available for this rescuer</string>
+    <string name="unable_find_closest_rescuer">Unable to find closest rescuer</string>
+    <string name="get_route">🗺️ Get Route</string>
+    <string name="choose_navigation_method">Choose Navigation Method</string>
+    <string name="navigation_method_prompt">How would you like to navigate to the emergency location?</string>
+    <string name="google_maps_app">Google Maps App</string>
+    <string name="in_app_route">In-App Route</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Hospital Status Strings -->
+    <string name="edit_status">Edit Status</string>
+    <string name="emergency_room_status">Emergency Room Status</string>
+    <string name="doctor_available">Doctor Available</string>
+    <string name="er_bed_available">ER Bed Available</string>
+    <string name="rescuer_location">Rescuer Location</string>
+    <string name="senior_information">Senior Information</string>
+    <string name="current_location">Current Location: </string>
+    <string name="name_label">Name: </string>
+    <string name="age_label">Age: </string>
+    <string name="notify_rescuer_barangay">Notify the Rescuer or Barangay for ER available?</string>
+    <string name="no_button">NO</string>
+    
+    <!-- Automatic Status System -->
+    <string name="automatic_status_calculation">Automatic Status Calculation</string>
+    <string name="status_auto_description">Status is automatically calculated based on bed availability and doctor count.</string>
+    <string name="current_status">Current Status:</string>
+    <string name="enter_bed_doctor_info">Enter bed and doctor information</string>
+    <string name="status_available_desc">🟢 Available: Good capacity and staff ratio</string>
+    <string name="status_busy_desc">🟡 Busy: High capacity or limited staff</string>
+    <string name="status_crowded_desc">🔴 Crowded: At or near capacity</string>
+
+</resources>

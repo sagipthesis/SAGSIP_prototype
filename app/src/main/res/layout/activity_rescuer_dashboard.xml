@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Rescuer_Dashboard">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavBar2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_background"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/circle_background"
+                    android:padding="10dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome Back!"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray"/>
+
+                    <TextView
+                        android:id="@+id/barangayStaffName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rescuer Name"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_blue"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Current Location Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_background"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍 Current Location"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/currentLocationValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Getting location..."
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"/>
+
+            </LinearLayout>
+
+            <!-- Map Toggle Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_background"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🗺️ Location Map"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:gravity="center_vertical"/>
+
+                <Button
+                    android:id="@+id/toggleMapButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Show Map"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_background"
+                    android:paddingHorizontal="16dp"/>
+
+            </LinearLayout>
+
+            <!-- Google Maps Fragment -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <fragment
+                    android:id="@+id/mapFragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Emergency Status Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/emergency_status_background"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🚨 Emergency Status"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ready to respond to emergency calls"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:alpha="0.9"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Location tracking: ON\n• Emergency listener: ACTIVE\n• Notifications: ENABLED"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    android:alpha="0.8"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!-- Quick Actions Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_background"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Quick Actions"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/navigateToHospitalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="🏥 Navigate to Nearest Hospital"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/hospital_button_background"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Additional quick action buttons can be added here -->
+
+            </LinearLayout>
+
+            <!-- Instructions Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/info_background"
+                android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ℹ️ How it works"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_blue"
+                    android:layout_marginBottom="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. Keep the app open to receive emergency alerts\n2. When an emergency occurs, you'll get a notification\n3. Use the map to see emergency location and route\n4. Tap 'RESPOND NOW' to accept the emergency\n5. Use Google Maps integration for turn-by-turn directions"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    android:lineSpacingExtra="4dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation (Fixed at bottom) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:menu="@menu/rescue_menu"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"/>
+
+</RelativeLayout>
